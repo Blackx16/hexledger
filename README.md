@@ -14,7 +14,7 @@
 6. [Setup & Installation](#6-setup--installation)  
    - [Prerequisites](#prerequisites)  
    - [Environment Variables](#environment-variables)  
-   - [Running with Docker (Recommended)](#running-with-docker-recommended)  
+   - [Running with Docker](##running-with-docker)  
    - [Running Manually](#running-manually)  
 7. [Usage Guide](#7-usage-guide)  
    - [Learner Workflow](#learner-workflow)  
@@ -84,16 +84,15 @@ A secure, unified, decentralized verification system is required.
 
 ```mermaid
 graph TD
-    A[Frontend (React.js, Vite, Tailwind CSS)] -->|API Calls| B[Backend (Node.js, Express)]
-    A -- MetaMask --> C[Ethereum Sepolia]
-    B -- SQLite --> D[(users.db)]
+    A[Frontend - React Vite Tailwind] -->|API Calls| B[Backend - Node Express]
+    A -->|MetaMask| C[Ethereum Sepolia]
+    B -->|SQLite| D[Database - users.db]
     B --> C
-    B -- JWT Auth --> A
-    C -- Smart Contract --> E[CertifyChain.sol]
-```
-Got it — below is the rewritten README starting from the **Frontend** section, with a detailed **frontend data** subsection added (component list, routes, state shape, API contracts, QR/MetaMask flows, and sample JSON). I then continue through Backend, Database, Blockchain, Setup, and remaining sections so the document is self-contained. Paste directly into your README.
+    B -->|JWT Auth| A
+    C -->|Smart Contract| E[CertifyChain.sol]
 
-````markdown
+```
+
 ### Frontend
 
 **Technologies:** React.js, Vite, Tailwind CSS, Framer Motion  
@@ -279,7 +278,7 @@ Response:
   ```json
   {
     "wallet": "0xabc123...",
-    "name": "Alice Student",
+    "name": "Chandra Student",
     "issuedAt": 1700000000
   }
   ```
@@ -469,31 +468,28 @@ npm run dev
 
 #### Learner Workflow
 
-1. Register/Login
+   1. Register/Login
 
-2. Connect MetaMask
+   2. Connect MetaMask
 
-3. Upload certificate
+   3. Upload certificate
 
-4. Issue on blockchain
+   4. Issue on blockchain
 
-5. Download QR code
+   5. Download QR code
 
 #### Employer Workflow
 
-1.Register/Login
+   1.Register/Login
 
-2.Verify using:
+   2.Verify using:
+      - Wallet address
+      - QR scan
+      - QR image upload
 
-3. Wallet address
+   3. View all certificates
 
-4. QR scan
-
-5. QR image upload
-
-6. View all certificates
-
-7. (Optional) Upload certificate to compare hashes
+   4. (Optional) Upload certificate to compare hashes
 
 ---
 
@@ -501,7 +497,7 @@ npm run dev
 
 **Contract Name**: CertifyChain.sol
 
-**Data Structure**
+#### Data Structure
 ```solidity
 struct Credential {
     string certHash;
@@ -510,13 +506,13 @@ struct Credential {
 }
 ```
 
-**Multi-Credential Mapping**
+#### Multi-Credential Mapping
 
 ```solidity
 mapping(address => Credential[]) public credentials;
 ```
 
-**Key Functions**
+#### Key Functions
 ```solidity
 function issueCredential(address _learner, string memory _certHash)
 function getCredentials(address _learner) view returns (Credential[] memory)
