@@ -467,16 +467,73 @@ npm run dev
 
 ## 7. Usage Guide
 
-(Identical flow as before — learner & employer flows; maintained for completeness.)
+#### Learner Workflow
+
+1. Register/Login
+
+2. Connect MetaMask
+
+3. Upload certificate
+
+4. Issue on blockchain
+
+5. Download QR code
+
+#### Employer Workflow
+
+1.Register/Login
+
+2.Verify using:
+
+3. Wallet address
+
+4. QR scan
+
+5. QR image upload
+
+6. View all certificates
+
+7. (Optional) Upload certificate to compare hashes
 
 ---
 
 ## 8. Smart Contract Details
 
-(Keep the contract details as above — mapping, struct, functions.)
+**Contract Name**: CertifyChain.sol
 
+**Data Structure**
+```solidity
+struct Credential {
+    string certHash;
+    uint256 timestamp;
+    address issuer;
+}
+```
+
+**Multi-Credential Mapping**
+
+```solidity
+mapping(address => Credential[]) public credentials;
+```
+
+**Key Functions**
+```solidity
+function issueCredential(address _learner, string memory _certHash)
+function getCredentials(address _learner) view returns (Credential[] memory)
+```
 ---
 
 ## 9. Future Enhancements
+- IPFS file storage
 
-(Keep existing future roadmap; items such as IPFS, issuer roles, batch issuance, revocation, DigiLocker, L2 scaling.)
+- Issuer verification roles
+
+- Batch credential issuance
+
+- Credential revocation
+
+- DigiLocker integration
+
+- Layer-2 support (Polygon)
+
+- Advanced UX/UI improvements
